@@ -114,6 +114,7 @@ class MPQArchive(object):
         self.header = self.read_header()
         self.hash_table =  self.read_table('hash')
         self.block_table = self.read_table('block')
+        self.files = self.read_file('(listfile)').splitlines()
 
     def read_header(self):
         """Read the header of a MPQ archive."""
@@ -194,13 +195,9 @@ class MPQArchive(object):
                     file_data = zlib.decompress(file_data[1:], 15)
             return file_data
 
-    def list_files(self):
-        """List the files inside the MPQ archive."""
-        return self.read_file('(listfile)').splitlines()
-
     def extract(self):
         """Extract all the files inside MPQ archive in memory."""
-        return dict((f, self.read_file(f)) for f in self.list_files())
+        return dict((f, self.read_file(f)) for f in self.files)
 
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
