@@ -173,26 +173,60 @@ class MPQArchive(object):
 
     def read_file(self, filename):
         """Read a file from the MPQ archive."""
+
+        def decompress(data):
+            """Read the compression type and decompress file data."""
+            compression_type = ord(data[0])
+            if compression_type == 0:
+                return data
+            if compression_type == 2:
+                return zlib.decompress(data[1:], 15)
+
+        # Iterate over all hash table entries, looking for the correct one.
         hash_a = self._hash(filename, 'HASH_A')
         hash_b = self._hash(filename, 'HASH_B')
         for i in range(self.header['hash_table_entries']):
             data = self.hash_table[i*16:i*16+16]
-            entry = MPQHashTableEntry._make(
+            hash_table_entry = MPQHashTableEntry._make(
                 struct.unpack(MPQHashTableEntry.struct_format, data))
-            if entry.hash_a == hash_a and entry.hash_b == hash_b:
+            if (hash_table_entry.hash_a == hash_a and
+                hash_table_entry.hash_b == hash_b):
+                # Correct hash table entry has been found.
                 break
-        pos = entry.block_table_index * 16
+
+        # Get the corresponding block table entry.
+        pos = hash_table_entry.block_table_index * 16
         data = self.block_table[pos:pos+16]
         block_table_entry = MPQBlockTableEntry._make(
             struct.unpack(MPQBlockTableEntry.struct_format, data))
+
+        # Read the block.
         if block_table_entry.flags & MPQ_FILE_EXISTS:
             offset = block_table_entry.offset + self.header['offset']
             self.file.seek(offset)
             file_data = self.file.read(block_table_entry.archived_size)
-            if block_table_entry.flags & MPQ_FILE_COMPRESS:
-                compression_type = ord(file_data[0])
-                if compression_type == 2:
-                    file_data = zlib.decompress(file_data[1:], 15)
+
+            if not block_table_entry.flags & MPQ_FILE_SINGLE_UNIT:
+                # File consist of many sectors. They all need to be
+                # decompressed separately and united.
+                sector_size = 512 << self.header['sector_size_shift']
+                sectors = block_table_entry.size / sector_size + 1
+                if block_table_entry.flags & MPQ_FILE_SECTOR_CRC:
+                    crc = True
+                    sectors += 1
+                positions = struct.unpack('<%dI' % (sectors + 1),
+                                          file_data[:4*(sectors+1)])
+                result = cStringIO.StringIO()
+                for i in range(len(positions) - (2 if crc else 1)):
+                    sector = file_data[positions[i]:positions[i+1]]
+                    sector = decompress(sector)
+                    result.write(sector)
+                file_data = result.getvalue()
+            else:
+                # Single unit files only need to be decompressed.
+                if block_table_entry.flags & MPQ_FILE_COMPRESS:
+                    file_data = decompress(file_data)
+
             return file_data
 
     def extract(self):
