@@ -219,7 +219,7 @@ class MPQArchive(object):
         return seed1
 
     def _decrypt(self, data, key):
-        """Decrypt hash and block table or blocks."""
+        """Decrypt hash or block table or a sector."""
         seed1 = key
         seed2 = 0xEEEEEEEE
         result = cStringIO.StringIO()
