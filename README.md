@@ -28,7 +28,7 @@ to do now is to extract the files.
 
 This will extract and return the archive's contents in memory. Be advised
 that you might not want to do this with multi-gigabyte MPQ files from
-World of Warcraft for example.
+World of Warcraft, for example.
 
 If you want to write the extracted files to disk, you can simply do the
 following.
@@ -76,3 +76,15 @@ You can print the header information from a given file from the command line.
       'hash_table_offset_high': 0}
 
 Note that the command line interface will be expanded in the future.
+
+## References
+
+The following two documents were used as references for the MPQ format:
+
+ * [http://www.zezula.net/en/mpq/mpqformat.html](http://www.zezula.net/en/mpq/mpqformat.html)
+ * [http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format](http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format)
+
+
+## Copyright
+
+Copyright 2010, Aku Kotkavuo. See LICENSE for details.
