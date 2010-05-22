@@ -33,7 +33,7 @@ MPQFileHeader = namedtuple('MPQFileHeader',
     block_table_entries
     '''
 )
-MPQFileHeader.struct_format = '<4s2i2h4i'
+MPQFileHeader.struct_format = '<4s2I2H4I'
 
 MPQFileHeaderExt = namedtuple('MPQFileHeaderExt',
     '''
@@ -52,7 +52,7 @@ MPQUserDataHeader = namedtuple('MPQUserDataHeader',
     user_data_header_size
     '''
 )
-MPQUserDataHeader.struct_format = '<4s3i'
+MPQUserDataHeader.struct_format = '<4s3I'
 
 MPQHashTableEntry = namedtuple('MPQHashTableEntry',
     '''
