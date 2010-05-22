@@ -11,24 +11,6 @@ import sys
 import zlib
 from collections import namedtuple
 
-
-LANGUAGES = {
-    0x000: 'English',
-    0x404: 'Chinese (Taiwan)',
-    0x405: 'Czech',
-    0x407: 'German',
-    0x409: 'English',
-    0x40a: 'Spanish',
-    0x40c: 'French',
-    0x410: 'Italian',
-    0x411: 'Japanese',
-    0x412: 'Korean',
-    0x415: 'Polish',
-    0x416: 'Portuguese',
-    0x419: 'Russian',
-    0x809: 'English (UK)'
-}
-
 MPQ_FILE_IMPLODE        = 0x00000100
 MPQ_FILE_COMPRESS       = 0x00000200
 MPQ_FILE_ENCRYPTED      = 0x00010000
