@@ -42,9 +42,15 @@ For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
-You can print the header information from a given file from the command line.
+You can extract all the files inside the archive from the command line.
 
-    ./mpyq.py game.SC2Replay
+    ./mpyq.py -xf game.SC2Replay
+
+This will create a directory called 'game' with the files inside.
+
+You can also print the header information from a given file.
+
+    ./mpyq.py -If game.SC2Replay
     {'block_table_offset_high': 0,
      'extended_block_table_offset': 0,
      'block_table_offset': 65647,
@@ -74,8 +80,6 @@ You can print the header information from a given file from the command line.
       },
       'hash_table_entries': 16,
       'hash_table_offset_high': 0}
-
-Note that the command line interface will be expanded in the future.
 
 ## References
 

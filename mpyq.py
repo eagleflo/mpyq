@@ -2,14 +2,19 @@
 # coding: utf-8
 
 """
-mpyq is a Python library for reading MoPaQ archives.
+mpyq is a Python library for reading MPQ (MoPaQ) archives.
 """
 
 import cStringIO
+import os
 import struct
 import sys
 import zlib
 from collections import namedtuple
+from optparse import OptionParser
+
+__author__ = "Aku Kotkavuo"
+__version__ = "0.1"
 
 MPQ_FILE_IMPLODE        = 0x00000100
 MPQ_FILE_COMPRESS       = 0x00000200
@@ -212,8 +217,19 @@ class MPQArchive(object):
             return file_data
 
     def extract(self):
-        """Extract all the files inside MPQ archive in memory."""
+        """Extract all the files inside the MPQ archive in memory."""
         return dict((f, self.read_file(f)) for f in self.files)
+
+    def extract_to_disk(self):
+        """Extract all files and write them to disk."""
+        archive_name, extension = os.path.splitext(self.file.name)
+        if not os.path.isdir(os.path.join(os.getcwd(), archive_name)):
+            os.mkdir(archive_name)
+        os.chdir(archive_name)
+        for filename, data in self.extract().items():
+            f = open(filename, 'wb')
+            f.write(data)
+            f.close()
 
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
@@ -278,9 +294,20 @@ class MPQArchive(object):
 
 
 def main(argv):
-    if len(argv) == 2:
-        archive = MPQArchive(argv[1])
-        print archive.header
+    parser = OptionParser(usage="%prog [options] -f FILE", version=__version__)
+    parser.add_option("-I", "--headers", action="store_true", dest="headers",
+                      help="print header information from archive")
+    parser.add_option("-x", "--extract", action="store_true", dest="extract",
+                      help="extract files from archive")
+    parser.add_option("-f", "--file", action="store", dest="file",
+                      help="path to archive")
+    options, args = parser.parse_args()
+    if options.file:
+        archive = MPQArchive(options.file)
+        if options.headers:
+            print archive.header
+        if options.extract:
+            archive.extract_to_disk()
 
 
 if __name__ == '__main__':
