@@ -42,6 +42,15 @@ For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
+    Usage: mpyq.py [options] -f FILE
+
+    Options:
+      --version             show program's version number and exit
+      -h, --help            show this help message and exit
+      -I, --headers         print header information from archive
+      -x, --extract         extract files from archive
+      -f FILE, --file=FILE  path to archive
+
 You can extract all the files inside the archive from the command line.
 
     ./mpyq.py -xf game.SC2Replay
