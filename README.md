@@ -4,6 +4,9 @@ mpyq is a Python library for reading MPQ (MoPaQ) archives used in many of
 Blizzard's games. It was originally developed for data mining Starcraft II
 replay files.
 
+In addition to being a library, mpyq also has a command line interface that
+exposes some of the library's core functionality such as extracting archives.
+
 At this early stage in development only files compressed with DEFLATE are
 uncompressed. More compression formats will be supported in the future. Also,
 as mpyq is so far pure Python code, it might be unfeasible to try to extract
@@ -22,7 +25,7 @@ in the future.
     >>> archive = mpyq.MPQArchive('game.SC2Replay')
 
 Now you have a MPQArchive object of the file you opened. One common thing
-to do now is to extract the files.
+to do now is to extract the files from the archive.
 
     >>> files = archive.extract()
 
@@ -33,10 +36,7 @@ World of Warcraft, for example.
 If you want to write the extracted files to disk, you can simply do the
 following.
 
-    >>> for filename, file in files.items():
-    ...     f = open(filename, 'wb')
-    ...     f.write(file)
-    ...     f.close()
+    >>> archive.extract_to_disk()
 
 For more information, consult `help(mpyq)` in your Python console.
 
