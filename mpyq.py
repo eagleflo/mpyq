@@ -164,13 +164,12 @@ class MPQArchive(object):
         data = self.file.read(table_entries * 16)
         data = self._decrypt(data, key)
 
-        table = []
-        for i in range(table_entries):
-            entry_data = data[i*16:i*16+16]
-            entry = entry_class._make(
+        def unpack_entry(position):
+            entry_data = data[position*16:position*16+16]
+            return entry_class._make(
                 struct.unpack(entry_class.struct_format, entry_data))
-            table.append(entry)
-        return table
+
+        return [unpack_entry(i) for i in range(table_entries)]
 
     def get_hash_table_entry(self, filename):
         """Get the hash table entry corresponding to filename."""
