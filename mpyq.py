@@ -149,14 +149,36 @@ class MPQArchive(object):
     def read_table(self, table_type):
         """Read either hash or block table of a MPQ archive."""
 
+        if table_type == 'hash':
+            entry_class = MPQHashTableEntry
+        elif table_type == 'block':
+            entry_class = MPQBlockTableEntry
+        else:
+            raise ValueError("Invalid table type.")
+
         table_offset = self.header['%s_table_offset' % table_type]
-        table_size = self.header['%s_table_entries' % table_type] * 16
+        table_entries = self.header['%s_table_entries' % table_type]
         key = self._hash('(%s table)' % table_type, 'TABLE')
 
         self.file.seek(table_offset + self.header['offset'])
-        table = self.file.read(table_size)
-        table = self._decrypt(table, key)
+        data = self.file.read(table_entries * 16)
+        data = self._decrypt(data, key)
+
+        table = []
+        for i in range(table_entries):
+            entry_data = data[i*16:i*16+16]
+            entry = entry_class._make(
+                struct.unpack(entry_class.struct_format, entry_data))
+            table.append(entry)
         return table
+
+    def get_hash_table_entry(self, filename):
+        """Get the hash table entry corresponding to filename."""
+        hash_a = self._hash(filename, 'HASH_A')
+        hash_b = self._hash(filename, 'HASH_B')
+        for entry in self.hash_table:
+            if (entry.hash_a == hash_a and entry.hash_b == hash_b):
+                return entry
 
     def read_file(self, filename):
         """Read a file from the MPQ archive."""
@@ -169,36 +191,21 @@ class MPQArchive(object):
             if compression_type == 2:
                 return zlib.decompress(data[1:], 15)
 
-        # Iterate over all hash table entries, looking for the correct one.
-        hash_a = self._hash(filename, 'HASH_A')
-        hash_b = self._hash(filename, 'HASH_B')
-        for i in range(self.header['hash_table_entries']):
-            data = self.hash_table[i*16:i*16+16]
-            hash_table_entry = MPQHashTableEntry._make(
-                struct.unpack(MPQHashTableEntry.struct_format, data))
-            if (hash_table_entry.hash_a == hash_a and
-                hash_table_entry.hash_b == hash_b):
-                # Correct hash table entry has been found.
-                break
-
-        # Get the corresponding block table entry.
-        pos = hash_table_entry.block_table_index * 16
-        data = self.block_table[pos:pos+16]
-        block_table_entry = MPQBlockTableEntry._make(
-            struct.unpack(MPQBlockTableEntry.struct_format, data))
+        hash_entry = self.get_hash_table_entry(filename)
+        block_entry = self.block_table[hash_entry.block_table_index]
 
         # Read the block.
-        if block_table_entry.flags & MPQ_FILE_EXISTS:
-            offset = block_table_entry.offset + self.header['offset']
+        if block_entry.flags & MPQ_FILE_EXISTS:
+            offset = block_entry.offset + self.header['offset']
             self.file.seek(offset)
-            file_data = self.file.read(block_table_entry.archived_size)
+            file_data = self.file.read(block_entry.archived_size)
 
-            if not block_table_entry.flags & MPQ_FILE_SINGLE_UNIT:
+            if not block_entry.flags & MPQ_FILE_SINGLE_UNIT:
                 # File consist of many sectors. They all need to be
                 # decompressed separately and united.
                 sector_size = 512 << self.header['sector_size_shift']
-                sectors = block_table_entry.size / sector_size + 1
-                if block_table_entry.flags & MPQ_FILE_SECTOR_CRC:
+                sectors = block_entry.size / sector_size + 1
+                if block_entry.flags & MPQ_FILE_SECTOR_CRC:
                     crc = True
                     sectors += 1
                 positions = struct.unpack('<%dI' % (sectors + 1),
@@ -211,7 +218,7 @@ class MPQArchive(object):
                 file_data = result.getvalue()
             else:
                 # Single unit files only need to be decompressed.
-                if block_table_entry.flags & MPQ_FILE_COMPRESS:
+                if block_entry.flags & MPQ_FILE_COMPRESS:
                     file_data = decompress(file_data)
 
             return file_data
