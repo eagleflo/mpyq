@@ -48,6 +48,7 @@ For more information, consult `help(mpyq)` in your Python console.
       --version             show program's version number and exit
       -h, --help            show this help message and exit
       -I, --headers         print header information from archive
+      -t, --list-files      list files inside archive
       -x, --extract         extract files from archive
       -f FILE, --file=FILE  path to archive
 

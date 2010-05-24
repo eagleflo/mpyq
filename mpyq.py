@@ -304,6 +304,8 @@ def main(argv):
     parser = OptionParser(usage="%prog [options] -f FILE", version=__version__)
     parser.add_option("-I", "--headers", action="store_true", dest="headers",
                       help="print header information from archive")
+    parser.add_option("-t", "--list-files", action="store_true", dest="list",
+                      help="list files inside archive")
     parser.add_option("-x", "--extract", action="store_true", dest="extract",
                       help="extract files from archive")
     parser.add_option("-f", "--file", action="store", dest="file",
@@ -313,6 +315,11 @@ def main(argv):
         archive = MPQArchive(options.file)
         if options.headers:
             print archive.header
+        if options.list:
+            for filename in archive.files:
+                hash_entry = archive.get_hash_table_entry(filename)
+                block_entry = archive.block_table[hash_entry.block_table_index]
+                print filename, block_entry.size
         if options.extract:
             archive.extract_to_disk()
 
