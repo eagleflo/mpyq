@@ -42,25 +42,28 @@ For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
-    Usage: mpyq.py [options] -f FILE
+    usage: mpyq.py [-h] [-I] [-t] [-x] file
 
-    Options:
-      --version             show program's version number and exit
-      -h, --help            show this help message and exit
-      -I, --headers         print header information from archive
-      -t, --list-files      list files inside archive
-      -x, --extract         extract files from archive
-      -f FILE, --file=FILE  path to archive
+    mpyq reads and extracts MPQ archives.
+
+    positional arguments:
+      file              path to the archive
+
+    optional arguments:
+      -h, --help        show this help message and exit
+      -I, --headers     print header information from the archive
+      -t, --list-files  list files inside the archive
+      -x, --extract     extract files from the archive
 
 You can extract all the files inside the archive from the command line.
 
-    ./mpyq.py -xf game.SC2Replay
+    ./mpyq.py -x game.SC2Replay
 
 This will create a directory called 'game' with the files inside.
 
 You can also print the header information from a given file.
 
-    ./mpyq.py -If game.SC2Replay
+    ./mpyq.py -I game.SC2Replay
     {'block_table_offset_high': 0,
      'extended_block_table_offset': 0,
      'block_table_offset': 65647,

@@ -5,13 +5,13 @@
 mpyq is a Python library for reading MPQ (MoPaQ) archives.
 """
 
+import argparse
 import cStringIO
 import os
 import struct
 import sys
 import zlib
 from collections import namedtuple
-from optparse import OptionParser
 
 __author__ = "Aku Kotkavuo"
 __version__ = "0.1"
@@ -300,26 +300,26 @@ class MPQArchive(object):
 
 
 def main(argv):
-    parser = OptionParser(usage="%prog [options] -f FILE", version=__version__)
-    parser.add_option("-I", "--headers", action="store_true", dest="headers",
-                      help="print header information from archive")
-    parser.add_option("-t", "--list-files", action="store_true", dest="list",
-                      help="list files inside archive")
-    parser.add_option("-x", "--extract", action="store_true", dest="extract",
-                      help="extract files from archive")
-    parser.add_option("-f", "--file", action="store", dest="file",
-                      help="path to archive")
-    options, args = parser.parse_args()
-    if options.file:
-        archive = MPQArchive(options.file)
-        if options.headers:
+    description = "mpyq reads and extracts MPQ archives."
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("-I", "--headers", action="store_true", dest="headers",
+                        help="print header information from the archive")
+    parser.add_argument("-t", "--list-files", action="store_true", dest="list",
+                        help="list files inside the archive")
+    parser.add_argument("-x", "--extract", action="store_true", dest="extract",
+                        help="extract files from the archive")
+    parser.add_argument("file", action="store", help="path to the archive")
+    args = parser.parse_args()
+    if args.file:
+        archive = MPQArchive(args.file)
+        if args.headers:
             print archive.header
-        if options.list:
+        if args.list:
             for filename in archive.files:
                 hash_entry = archive.get_hash_table_entry(filename)
                 block_entry = archive.block_table[hash_entry.block_table_index]
                 print filename, block_entry.size
-        if options.extract:
+        if args.extract:
             archive.extract_to_disk()
 
 
