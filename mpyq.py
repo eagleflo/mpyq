@@ -6,6 +6,7 @@ mpyq is a Python library for reading MPQ (MoPaQ) archives.
 """
 
 import argparse
+import bz2
 import cStringIO
 import os
 import struct
@@ -187,8 +188,12 @@ class MPQArchive(object):
             compression_type = ord(data[0])
             if compression_type == 0:
                 return data
-            if compression_type == 2:
+            elif compression_type == 2:
                 return zlib.decompress(data[1:], 15)
+            elif compression_type == 16:
+                return bz2.decompress(data[1:])
+            else:
+                raise RuntimeError("Unsupported compression type.")
 
         hash_entry = self.get_hash_table_entry(filename)
         block_entry = self.block_table[hash_entry.block_table_index]
@@ -216,8 +221,10 @@ class MPQArchive(object):
                     result.write(sector)
                 file_data = result.getvalue()
             else:
-                # Single unit files only need to be decompressed.
-                if block_entry.flags & MPQ_FILE_COMPRESS:
+                # Single unit files only need to be decompressed, but
+                # compression only happens when at least one byte is gained.
+                if (block_entry.flags & MPQ_FILE_COMPRESS and
+                    block_entry.size > block_entry.archived_size):
                     file_data = decompress(file_data)
 
             return file_data
