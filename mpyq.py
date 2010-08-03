@@ -14,8 +14,10 @@ import sys
 import zlib
 from collections import namedtuple
 
+
 __author__ = "Aku Kotkavuo"
 __version__ = "0.1"
+
 
 MPQ_FILE_IMPLODE        = 0x00000100
 MPQ_FILE_COMPRESS       = 0x00000200
@@ -81,19 +83,6 @@ MPQBlockTableEntry = namedtuple('MPQBlockTableEntry',
 )
 MPQBlockTableEntry.struct_format = '4I'
 
-SC2ReplayHeader = namedtuple('SC2ReplayHeader',
-    '''
-    identifier
-    release_flag
-    major_version
-    minor_version
-    maintenance_version
-    build_number
-    duration
-    '''
-)
-SC2ReplayHeader.struct_format = '>x19s2x4bi6xhx'
-
 
 class MPQArchive(object):
 
@@ -127,10 +116,6 @@ class MPQArchive(object):
                 struct.unpack(MPQUserDataHeader.struct_format, data))
             header = header._asdict()
             header['content'] = self.file.read(header['user_data_header_size'])
-            if header['content'].startswith('\x15StarCraft II replay'):
-                header['starcraft2_replay_header'] = SC2ReplayHeader._make(
-                    struct.unpack(SC2ReplayHeader.struct_format,
-                                  header['content']))
             return header
 
         magic = self.file.read(4)
