@@ -64,35 +64,29 @@ This will create a directory called 'game' with the files inside.
 You can also print the header information from a given file.
 
     ./mpyq.py -I game.SC2Replay
-    {'block_table_offset_high': 0,
-     'extended_block_table_offset': 0,
-     'block_table_offset': 65647,
-     'magic': 'MPQ\x1a',
-     'arhive_size': 65791,
-     'format_version': 1,
-     'sector_size_shift': 3,
-     'header_size': 44,
-     'hash_table_offset': 65391,
-     'offset': 1024,
-     'block_table_entries': 9,
-     'user_data_header': {
-       'mpq_header_offset': 1024,
-       'magic': 'MPQ\x1b',
-       'starcraft2_replay_header': SC2ReplayHeader(
-         identifier='StarCraft II replay',
-         release_flag=1,
-         major_version=0,
-         minor_version=11,
-         maintenance_version=0,
-         build_number=15133,
-         duration=1304
-        ),
-        'content': '\x15StarCraft II replay\x1b6\x01\x00\x0b\x00\x00\x00;\x1d\x00\x00;\x1d\x02\x00\x05\x18\x03',
-        'user_data_size': 512,
-        'user_data_header_size': 39
-      },
-      'hash_table_entries': 16,
-      'hash_table_offset_high': 0}
+    MPQ archive header
+    ------------------
+    magic                          'MPQ\x1a'
+    header_size                    44
+    arhive_size                    299391
+    format_version                 1
+    sector_size_shift              3
+    hash_table_offset              298975
+    block_table_offset             299231
+    hash_table_entries             16
+    block_table_entries            10
+    extended_block_table_offset    0
+    hash_table_offset_high         0
+    block_table_offset_high        0
+    offset                         1024
+
+    MPQ user data header
+    --------------------
+    magic                          'MPQ\x1b'
+    user_data_size                 512
+    mpq_header_offset              1024
+    user_data_header_size          60
+    content                        '\x05\x08\x00\x02,StarCraft II replay\x1b11\x02\x05\x0c\x00\t\x02\x02\t\x02\x04\t\x00\x06\t\x00\x08\t\xea\xfb\x01\n\t\xda\xf0\x01\x04\t\x04\x06\t\xfe\x9e\x05'
 
 ## References
 

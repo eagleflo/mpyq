@@ -229,6 +229,20 @@ class MPQArchive(object):
             f.write(data)
             f.close()
 
+    def print_headers(self):
+        print "MPQ archive header"
+        print "------------------"
+        for key, value in self.header.iteritems():
+            if key == "user_data_header":
+                continue
+            print "{0:30} {1!r}".format(key, value)
+        if self.header['user_data_header']:
+            print
+            print "MPQ user data header"
+            print "--------------------"
+            for key, value in self.header['user_data_header'].iteritems():
+                print "{0:30} {1!r}".format(key, value)
+
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
         hash_types = {
@@ -305,7 +319,7 @@ def main(argv):
     if args.file:
         archive = MPQArchive(args.file)
         if args.headers:
-            print archive.header
+            archive.print_headers()
         if args.list:
             for filename in archive.files:
                 hash_entry = archive.get_hash_table_entry(filename)
