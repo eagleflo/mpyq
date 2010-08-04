@@ -7,15 +7,21 @@ replay files.
 In addition to being a library, mpyq also has a command line interface that
 exposes some of the library's core functionality such as extracting archives.
 
-At this early stage in development only files compressed with DEFLATE are
-uncompressed. More compression formats will be supported in the future. Also,
-as mpyq is so far pure Python code, it might be unfeasible to try to extract
-very large MPQ archives.
+At this early stage in development only files compressed with DEFLATE or bzip2
+are uncompressed. This means that this library can not be used to extract most
+big game asset archives that Blizzard's games use. More compression formats
+will be supported in the future.
+
+Also, as mpyq is so far pure Python code, it might be unfeasible to try to
+extract very large MPQ archives, even if all the compression methods used
+inside the archive were supported.
+
+Note that listing files inside an archive does not require full extraction.
+You can safely take a peek inside any MPQ archive with this library.
 
 ## Installation
 
-For now, mpyq is not installable as an egg or anything. This will change
-in the future.
+For now, mpyq is not installable as an egg. This will change in the future.
 
 ## Usage
 
@@ -55,13 +61,13 @@ For more information, consult `help(mpyq)` in your Python console.
       -t, --list-files  list files inside the archive
       -x, --extract     extract files from the archive
 
-You can extract all the files inside the archive from the command line.
+You can extract all the files inside the archive with `-x/--extract`.
 
     ./mpyq.py -x game.SC2Replay
 
 This will create a directory called 'game' with the files inside.
 
-You can also print the header information from a given file.
+You can print the header information from a given archive with `-I/--headers`.
 
     ./mpyq.py -I game.SC2Replay
     MPQ archive header
@@ -86,7 +92,10 @@ You can also print the header information from a given file.
     user_data_size                 512
     mpq_header_offset              1024
     user_data_header_size          60
-    content                        '\x05\x08\x00\x02,StarCraft II replay\x1b11\x02\x05\x0c\x00\t\x02\x02\t\x02\x04\t\x00\x06\t\x00\x08\t\xea\xfb\x01\n\t\xda\xf0\x01\x04\t\x04\x06\t\xfe\x9e\x05'
+    content                        '\x05\x08\x00\x02,StarCraft II replay\x1b
+                                    11\x02\x05\x0c\x00\t\x02\x02\t\x02\x04\t
+                                    \x00\x06\t\x00\x08\t\xea\xfb\x01\n\t\xda
+                                    \xf0\x01\x04\t\x04\x06\t\xfe\x9e\x05'
 
 You can list all files inside the archive with `-t/--list-files`.
 
