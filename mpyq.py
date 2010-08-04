@@ -324,7 +324,7 @@ def main(argv):
             for filename in archive.files:
                 hash_entry = archive.get_hash_table_entry(filename)
                 block_entry = archive.block_table[hash_entry.block_table_index]
-                print filename, block_entry.size
+                print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
         if args.extract:
             archive.extract_to_disk()
 

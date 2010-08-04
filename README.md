@@ -88,6 +88,18 @@ You can also print the header information from a given file.
     user_data_header_size          60
     content                        '\x05\x08\x00\x02,StarCraft II replay\x1b11\x02\x05\x0c\x00\t\x02\x02\t\x02\x04\t\x00\x06\t\x00\x08\t\xea\xfb\x01\n\t\xda\xf0\x01\x04\t\x04\x06\t\xfe\x9e\x05'
 
+You can list all files inside the archive with `-t/--list-files`.
+
+    ./mpyq.py -t game.SC2Replay
+    replay.attributes.events            580 bytes
+    replay.details                      451 bytes
+    replay.game.events               692813 bytes
+    replay.initData                    1169 bytes
+    replay.load.info                     95 bytes
+    replay.message.events               535 bytes
+    replay.smartcam.events            11392 bytes
+    replay.sync.events                 3350 bytes
+
 ## References
 
 The following two documents were used as references for the MPQ format:
