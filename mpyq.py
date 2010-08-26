@@ -308,13 +308,13 @@ class MPQArchive(object):
 def main(argv):
     description = "mpyq reads and extracts MPQ archives."
     parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("file", action="store", help="path to the archive")
     parser.add_argument("-I", "--headers", action="store_true", dest="headers",
                         help="print header information from the archive")
     parser.add_argument("-t", "--list-files", action="store_true", dest="list",
                         help="list files inside the archive")
     parser.add_argument("-x", "--extract", action="store_true", dest="extract",
                         help="extract files from the archive")
-    parser.add_argument("file", action="store", help="path to the archive")
     args = parser.parse_args()
     if args.file:
         archive = MPQArchive(args.file)
