@@ -27,8 +27,8 @@ For now, mpyq is not installable as an egg. This will change in the future.
 
 ### As a library
 
-    >>> import mpyq
-    >>> archive = mpyq.MPQArchive('game.SC2Replay')
+    >>> from mpyq import MPQArchive
+    >>> archive = MPQArchive('game.SC2Replay')
 
 Now you have a MPQArchive object of the file you opened. One common thing
 to do now is to extract the files from the archive.
