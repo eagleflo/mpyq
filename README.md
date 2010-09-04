@@ -21,6 +21,11 @@ You can safely take a peek inside any MPQ archive with this library.
 
 ## Installation
 
+Currently the best way to install mpyq is to clone this git repository
+somewhere on your filesystem and then either adjust your PYTHONPATH environment
+variable to point to the directory that contains the repository or create a
+symbolic link from the repository to your Python's site-packages directory.
+
 For now, mpyq is not installable as an egg. This will change in the future.
 
 ## Usage
