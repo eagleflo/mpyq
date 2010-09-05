@@ -44,8 +44,7 @@ This will extract and return the archive's contents in memory. Be advised
 that you might not want to do this with multi-gigabyte MPQ files from
 World of Warcraft, for example.
 
-If you want to write the extracted files to disk, you can simply do the
-following.
+Files inside the archive can be also extracted and written to disk.
 
     >>> archive.extract_to_disk()
 
