@@ -243,6 +243,12 @@ class MPQArchive(object):
             for key, value in self.header['user_data_header'].iteritems():
                 print "{0:30} {1!r}".format(key, value)
 
+    def print_files(self):
+        for filename in self.files:
+            hash_entry = self.get_hash_table_entry(filename)
+            block_entry = self.block_table[hash_entry.block_table_index]
+            print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
+
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
         hash_types = {
@@ -321,10 +327,7 @@ def main(argv):
         if args.headers:
             archive.print_headers()
         if args.list:
-            for filename in archive.files:
-                hash_entry = archive.get_hash_table_entry(filename)
-                block_entry = archive.block_table[hash_entry.block_table_index]
-                print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
+            archive.print_files()
         if args.extract:
             archive.extract_to_disk()
 
