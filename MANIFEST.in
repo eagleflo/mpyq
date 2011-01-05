@@ -1,4 +1,3 @@
 include README.md
 include LICENSE
 include MANIFEST.in
-include __init__.py

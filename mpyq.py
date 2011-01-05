@@ -10,13 +10,12 @@ import bz2
 import cStringIO
 import os
 import struct
-import sys
 import zlib
 from collections import namedtuple
 
 
 __author__ = "Aku Kotkavuo"
-__version__ = "0.1"
+__version__ = "0.1.1"
 
 
 MPQ_FILE_IMPLODE        = 0x00000100
@@ -311,7 +310,7 @@ class MPQArchive(object):
     encryption_table = _prepare_encryption_table()
 
 
-def main(argv):
+def main():
     description = "mpyq reads and extracts MPQ archives."
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("file", action="store", help="path to the archive")
@@ -333,4 +332,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

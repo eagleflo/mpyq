@@ -68,7 +68,7 @@ For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
-    usage: mpyq.py [-h] [-I] [-t] [-x] file
+    usage: mpyq [-h] [-I] [-t] [-x] file
 
     mpyq reads and extracts MPQ archives.
 
@@ -83,13 +83,13 @@ For more information, consult `help(mpyq)` in your Python console.
 
 You can extract all the files inside the archive with `-x/--extract`.
 
-    ./mpyq.py -x game.SC2Replay
+    mpyq -x game.SC2Replay
 
 This will create a directory called 'game' with the files inside.
 
 You can print the header information from a given archive with `-I/--headers`.
 
-    ./mpyq.py -I game.SC2Replay
+    mpyq -I game.SC2Replay
     MPQ archive header
     ------------------
     magic                          'MPQ\x1a'
@@ -119,7 +119,7 @@ You can print the header information from a given archive with `-I/--headers`.
 
 You can list all files inside the archive with `-t/--list-files`.
 
-    ./mpyq.py -t game.SC2Replay
+    mpyq -t game.SC2Replay
     replay.attributes.events            580 bytes
     replay.details                      451 bytes
     replay.game.events               692813 bytes
