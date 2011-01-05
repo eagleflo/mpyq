@@ -24,12 +24,12 @@ You can safely take a peek inside any MPQ archive with this library.
 A stable version of mpyq is available from PyPI and can be installed with
 either `easy_install` or `pip`.
 
-    easy_install mpyq
-    pip install mpyq
+    $ easy_install mpyq
+    $ pip install mpyq
 
 mpyq can be installed manually with the included setup.py script.
 
-    python setup.py install
+    $ python setup.py install
 
 Running this command will install mpyq both as a library and a stand-alone
 script that can be run from anywhere, provided that you have added Python's
@@ -83,13 +83,13 @@ For more information, consult `help(mpyq)` in your Python console.
 
 You can extract all the files inside the archive with `-x/--extract`.
 
-    mpyq -x game.SC2Replay
+    $ mpyq -x game.SC2Replay
 
 This will create a directory called 'game' with the files inside.
 
 You can print the header information from a given archive with `-I/--headers`.
 
-    mpyq -I game.SC2Replay
+    $ mpyq -I game.SC2Replay
     MPQ archive header
     ------------------
     magic                          'MPQ\x1a'
@@ -119,7 +119,7 @@ You can print the header information from a given archive with `-I/--headers`.
 
 You can list all files inside the archive with `-t/--list-files`.
 
-    mpyq -t game.SC2Replay
+    $ mpyq -t game.SC2Replay
     replay.attributes.events            580 bytes
     replay.details                      451 bytes
     replay.game.events               692813 bytes
