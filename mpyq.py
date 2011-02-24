@@ -15,7 +15,7 @@ from collections import namedtuple
 
 
 __author__ = "Aku Kotkavuo"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 
 MPQ_FILE_IMPLODE        = 0x00000100
@@ -196,6 +196,8 @@ class MPQArchive(object):
                 if block_entry.flags & MPQ_FILE_SECTOR_CRC:
                     crc = True
                     sectors += 1
+                else:
+                    crc = False
                 positions = struct.unpack('<%dI' % (sectors + 1),
                                           file_data[:4*(sectors+1)])
                 result = cStringIO.StringIO()
