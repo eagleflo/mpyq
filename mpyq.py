@@ -244,6 +244,22 @@ class MPQArchive(object):
             for key, value in self.header['user_data_header'].iteritems():
                 print "{0:30} {1!r}".format(key, value)
 
+    def print_hash_table(self):
+        print "MPQ archive hash table"
+        print "----------------------"
+        print " Hash A   Hash B  Locl Plat BlockIdx"
+        for entry in self.hash_table:
+            print '%08X %08X %04X %04X %08X' % entry
+        print
+
+    def print_block_table(self):
+        print "MPQ archive block table"
+        print "-----------------------"
+        print " Offset  ArchSize RealSize  Flags"
+        for entry in self.block_table:
+            print '%08X %8d %8d %8X' % entry
+        print
+
     def print_files(self):
         for filename in self.files:
             hash_entry = self.get_hash_table_entry(filename)
