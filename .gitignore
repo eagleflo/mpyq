@@ -1,2 +1,7 @@
 *.DS_Store
 *.pyc
+*.egg-info/
+dist/
+docs/
+build/
+*.SC2Replay
