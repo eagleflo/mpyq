@@ -88,7 +88,7 @@ class MPQArchive(object):
     def __init__(self, filename):
         self.file = open(filename, 'rb')
         self.header = self.read_header()
-        self.hash_table =  self.read_table('hash')
+        self.hash_table = self.read_table('hash')
         self.block_table = self.read_table('block')
         self.files = self.read_file('(listfile)').splitlines()
 
