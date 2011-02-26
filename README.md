@@ -68,18 +68,20 @@ For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
-    usage: mpyq [-h] [-I] [-t] [-x] file
+    usage: mpyq [-h] [-I] [-H] [-b] [-t] [-x] file
 
     mpyq reads and extracts MPQ archives.
 
     positional arguments:
-      file              path to the archive
+      file               path to the archive
 
     optional arguments:
-      -h, --help        show this help message and exit
-      -I, --headers     print header information from the archive
-      -t, --list-files  list files inside the archive
-      -x, --extract     extract files from the archive
+      -h, --help         show this help message and exit
+      -I, --headers      print header information from the archive
+      -H, --hash-table   print hash table
+      -b, --block-table  print block table
+      -t, --list-files   list files inside the archive
+      -x, --extract      extract files from the archive
 
 You can extract all the files inside the archive with `-x/--extract`.
 
@@ -94,11 +96,11 @@ You can print the header information from a given archive with `-I/--headers`.
     ------------------
     magic                          'MPQ\x1a'
     header_size                    44
-    arhive_size                    299391
+    arhive_size                    19801
     format_version                 1
     sector_size_shift              3
-    hash_table_offset              298975
-    block_table_offset             299231
+    hash_table_offset              19385
+    block_table_offset             19641
     hash_table_entries             16
     block_table_entries            10
     extended_block_table_offset    0
@@ -113,21 +115,61 @@ You can print the header information from a given archive with `-I/--headers`.
     mpq_header_offset              1024
     user_data_header_size          60
     content                        '\x05\x08\x00\x02,StarCraft II replay\x1b
-                                    11\x02\x05\x0c\x00\t\x02\x02\t\x02\x04\t
-                                    \x00\x06\t\x00\x08\t\xea\xfb\x01\n\t\xda
-                                    \xf0\x01\x04\t\x04\x06\t\xfe\x9e\x05'
+                                    11\x02\x05\x0c\x00\t\x02\x02\t\x00\x04\t
+                                    (\x06\t\x00\x08\t\xc8\xfa\x01\n\t\xc8\xf
+                                    a\x01\x04\t\x04\x06\t\xa2\x99\x01'
+
+You can display the archive's hash table with `-H/--hash-table`.
+
+    $ mpyq -H game.SC2Replay
+    MPQ archive hash table
+    ----------------------
+     Hash A   Hash B  Locl Plat BlockIdx
+    D38437CB 07DFEAEC 0000 0000 00000009
+    AAC2A54B F4762B95 0000 0000 00000002
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    C9E5B770 3B18F6B6 0000 0000 00000005
+    343C087B 278E3682 0000 0000 00000004
+    3B2B1EA0 B72EF057 0000 0000 00000006
+    5A7E8BDC FF253F5C 0000 0000 00000001
+    FD657910 4E9B98A7 0000 0000 00000008
+    D383C29C EF402E92 0000 0000 00000000
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF
+    1DA8B0CF A2CEFF28 0000 0000 00000007
+    31952289 6A5FFAA3 0000 0000 00000003
+
+You can display the archive's block table with `-b/--block-table`.
+
+    $ mpyq -b game.SC2Replay
+    MPQ archive block table
+    -----------------------
+     Offset  ArchSize RealSize  Flags
+    0000002C      443      443 81000200
+    000001E7      609     1082 81000200
+    00000448    16077    42859 81000200
+    00004315       94       94 81000200
+    00004373       96       96 81000200
+    000043D3      591      765 81000200
+    00004622      802     1444 81000200
+    00004944      247      580 81000200
+    00004A3B      120      164 81000200
+    00004AB3      262      288 81000200
 
 You can list all files inside the archive with `-t/--list-files`.
 
     $ mpyq -t game.SC2Replay
     replay.attributes.events            580 bytes
-    replay.details                      451 bytes
-    replay.game.events               692813 bytes
-    replay.initData                    1169 bytes
-    replay.load.info                     95 bytes
-    replay.message.events               535 bytes
-    replay.smartcam.events            11392 bytes
-    replay.sync.events                 3350 bytes
+    replay.details                      443 bytes
+    replay.game.events                42859 bytes
+    replay.initData                    1082 bytes
+    replay.load.info                     96 bytes
+    replay.message.events                94 bytes
+    replay.smartcam.events             1444 bytes
+    replay.sync.events                  765 bytes
 
 ## References
 
