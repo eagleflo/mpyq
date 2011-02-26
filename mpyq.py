@@ -334,6 +334,10 @@ def main():
     parser.add_argument("file", action="store", help="path to the archive")
     parser.add_argument("-I", "--headers", action="store_true", dest="headers",
                         help="print header information from the archive")
+    parser.add_argument("-H", "--hash-table", action="store_true",
+                        dest="hash_table", help="print hash table"),
+    parser.add_argument("-b", "--block-table", action="store_true",
+                        dest="block_table", help="print block table"),
     parser.add_argument("-t", "--list-files", action="store_true", dest="list",
                         help="list files inside the archive")
     parser.add_argument("-x", "--extract", action="store_true", dest="extract",
@@ -343,6 +347,10 @@ def main():
         archive = MPQArchive(args.file)
         if args.headers:
             archive.print_headers()
+        if args.hash_table:
+            archive.print_hash_table()
+        if args.block_table:
+            archive.print_block_table()
         if args.list:
             archive.print_files()
         if args.extract:
