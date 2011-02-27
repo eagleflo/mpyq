@@ -188,6 +188,9 @@ class MPQArchive(object):
             self.file.seek(offset)
             file_data = self.file.read(block_entry.archived_size)
 
+            if block_entry.flags & MPQ_FILE_ENCRYPTED:
+                raise NotImplementedError("Encryption is not supported yet.")
+
             if not block_entry.flags & MPQ_FILE_SINGLE_UNIT:
                 # File consist of many sectors. They all need to be
                 # decompressed separately and united.
