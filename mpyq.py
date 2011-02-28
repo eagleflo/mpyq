@@ -85,12 +85,21 @@ MPQBlockTableEntry.struct_format = '4I'
 
 class MPQArchive(object):
 
-    def __init__(self, filename):
+    def __init__(self, filename, listfile=True):
+        """Create an MPQArchive object.
+
+        You can skip reading the listfile if you pass listfile=False
+        to the constructor. The 'files' attribute will be unavailable
+        if you do this.
+        """
         self.file = open(filename, 'rb')
         self.header = self.read_header()
         self.hash_table = self.read_table('hash')
         self.block_table = self.read_table('block')
-        self.files = self.read_file('(listfile)').splitlines()
+        if listfile:
+            self.files = self.read_file('(listfile)').splitlines()
+        else:
+            self.files = None
 
     def read_header(self):
         """Read the header of a MPQ archive."""
@@ -220,7 +229,10 @@ class MPQArchive(object):
 
     def extract(self):
         """Extract all the files inside the MPQ archive in memory."""
-        return dict((f, self.read_file(f)) for f in self.files)
+        if self.files:
+            return dict((f, self.read_file(f)) for f in self.files)
+        else:
+            raise RuntimeError("Can't extract whole archive without listfile.")
 
     def extract_to_disk(self):
         """Extract all files and write them to disk."""
@@ -229,6 +241,14 @@ class MPQArchive(object):
             os.mkdir(archive_name)
         os.chdir(archive_name)
         for filename, data in self.extract().items():
+            f = open(filename, 'wb')
+            f.write(data)
+            f.close()
+
+    def extract_files(self, *filenames):
+        """Extract given files from the archive to disk."""
+        for filename in filenames:
+            data = self.read_file(filename)
             f = open(filename, 'wb')
             f.write(data)
             f.close()
@@ -264,10 +284,11 @@ class MPQArchive(object):
         print
 
     def print_files(self):
-        for filename in self.files:
-            hash_entry = self.get_hash_table_entry(filename)
-            block_entry = self.block_table[hash_entry.block_table_index]
-            print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
+        if self.files:
+            for filename in self.files:
+                hash_entry = self.get_hash_table_entry(filename)
+                block_entry = self.block_table[hash_entry.block_table_index]
+                print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
 
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
@@ -341,13 +362,18 @@ def main():
                         dest="hash_table", help="print hash table"),
     parser.add_argument("-b", "--block-table", action="store_true",
                         dest="block_table", help="print block table"),
+    parser.add_argument("-s", "--skip-listfile", action="store_true",
+                        dest="skip_listfile", help="skip reading (listfile)"),
     parser.add_argument("-t", "--list-files", action="store_true", dest="list",
                         help="list files inside the archive")
     parser.add_argument("-x", "--extract", action="store_true", dest="extract",
                         help="extract files from the archive")
     args = parser.parse_args()
     if args.file:
-        archive = MPQArchive(args.file)
+        if not args.skip_listfile:
+            archive = MPQArchive(args.file)
+        else:
+            archive = MPQArchive(args.file, listfile=False)
         if args.headers:
             archive.print_headers()
         if args.hash_table:

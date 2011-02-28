@@ -64,24 +64,37 @@ Files inside the archive can be also extracted and written to disk.
 
     >>> archive.extract_to_disk()
 
+If you want to skip reading the (listfile) inside the archive, you can do
+so by passing `listfile=False` to the constructor.
+
+    >>> archive = MPQArchive('bad_listfile.SC2Replay', listfile=False)
+
+This might be required if the (listfile) is encrypted or has been tampered
+with. Note that you can't list files or extract the whole archive if you do
+this -- you need to know in advance which files you want to read.
+
+    >>> archive.read('replay.details')
+    '\x05\x1c\x00\x04\x01\x00\x04\x05...'
+
 For more information, consult `help(mpyq)` in your Python console.
 
 ### From the command line
 
-    usage: mpyq [-h] [-I] [-H] [-b] [-t] [-x] file
+    usage: mpyq.py [-h] [-I] [-H] [-b] [-s] [-t] [-x] file
 
     mpyq reads and extracts MPQ archives.
 
     positional arguments:
-      file               path to the archive
+      file                 path to the archive
 
     optional arguments:
-      -h, --help         show this help message and exit
-      -I, --headers      print header information from the archive
-      -H, --hash-table   print hash table
-      -b, --block-table  print block table
-      -t, --list-files   list files inside the archive
-      -x, --extract      extract files from the archive
+      -h, --help           show this help message and exit
+      -I, --headers        print header information from the archive
+      -H, --hash-table     print hash table
+      -b, --block-table    print block table
+      -s, --skip-listfile  skip reading (listfile)
+      -t, --list-files     list files inside the archive
+      -x, --extract        extract files from the archive
 
 You can extract all the files inside the archive with `-x/--extract`.
 
@@ -170,6 +183,10 @@ You can list all files inside the archive with `-t/--list-files`.
     replay.message.events                94 bytes
     replay.smartcam.events             1444 bytes
     replay.sync.events                  765 bytes
+
+You can skip reading the listfile with `-s/--skip-listfile`. This might be
+necessarry if the listfile is encrypted or corrupted. Note that you cannot
+list files or extract the whole archive without the listfile.
 
 ## References
 
