@@ -12,6 +12,9 @@ class TestMPQArchive(unittest.TestCase):
     def setUp(self):
         self.archive = MPQArchive(TEST_DIR + 'test.SC2Replay')
 
+    def test_init_with_file(self):
+        self.archive = MPQArchive(open(TEST_DIR + 'test.SC2Replay', 'rb'))
+
     def test_header(self):
         self.assertEqual(self.archive.header['magic'], 'MPQ\x1a')
         self.assertEqual(self.archive.header['header_size'], 44)

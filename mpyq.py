@@ -92,7 +92,10 @@ class MPQArchive(object):
         to the constructor. The 'files' attribute will be unavailable
         if you do this.
         """
-        self.file = open(filename, 'rb')
+        if isinstance(filename, file):
+            self.file = filename
+        else:
+            self.file = open(filename, 'rb')
         self.header = self.read_header()
         self.hash_table = self.read_table('hash')
         self.block_table = self.read_table('block')
