@@ -192,6 +192,8 @@ class MPQArchive(object):
                 raise RuntimeError("Unsupported compression type.")
 
         hash_entry = self.get_hash_table_entry(filename)
+        if hash_entry is None:
+            return None
         block_entry = self.block_table[hash_entry.block_table_index]
 
         # Read the block.
