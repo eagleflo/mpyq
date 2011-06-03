@@ -345,7 +345,7 @@ class MPQArchive(object):
             index = i
             for j in range(5):
                 seed = (seed * 125 + 3) % 0x2AAAAB
-                temp1 = (seed & 0xFFFF) << 0x10;
+                temp1 = (seed & 0xFFFF) << 0x10
 
                 seed = (seed * 125 + 3) % 0x2AAAAB
                 temp2 = (seed & 0xFFFF)
