@@ -144,7 +144,7 @@ class MPQArchive(object):
         return header
 
     def read_table(self, table_type):
-        """Read either hash or block table of a MPQ archive."""
+        """Read either the hash or block table of a MPQ archive."""
 
         if table_type == 'hash':
             entry_class = MPQHashTableEntry
@@ -169,7 +169,7 @@ class MPQArchive(object):
         return [unpack_entry(i) for i in range(table_entries)]
 
     def get_hash_table_entry(self, filename):
-        """Get the hash table entry corresponding to filename."""
+        """Get the hash table entry corresponding to a given filename."""
         hash_a = self._hash(filename, 'HASH_A')
         hash_b = self._hash(filename, 'HASH_B')
         for entry in self.hash_table:
