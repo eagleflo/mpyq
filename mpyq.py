@@ -86,7 +86,7 @@ MPQBlockTableEntry.struct_format = '4I'
 class MPQArchive(object):
 
     def __init__(self, filename, listfile=True):
-        """Create an MPQArchive object.
+        """Create a MPQArchive object.
 
         You can skip reading the listfile if you pass listfile=False
         to the constructor. The 'files' attribute will be unavailable
