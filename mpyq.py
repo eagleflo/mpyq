@@ -295,10 +295,13 @@ class MPQArchive(object):
         if self.files:
             print "Files"
             print "-----"
+            width = max(len(name) for name in self.files) + 2
             for filename in self.files:
                 hash_entry = self.get_hash_table_entry(filename)
                 block_entry = self.block_table[hash_entry.block_table_index]
-                print "{0:30} {1:>8} bytes".format(filename, block_entry.size)
+                print "{0:{width}} {1:>8} bytes".format(filename,
+                                                        block_entry.size,
+                                                        width=width)
 
     def _hash(self, string, hash_type):
         """Hash a string using MPQ's hash function."""
