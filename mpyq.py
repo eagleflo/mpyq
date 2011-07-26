@@ -273,6 +273,7 @@ class MPQArchive(object):
             print "--------------------"
             for key, value in self.header['user_data_header'].iteritems():
                 print "{0:30} {1!r}".format(key, value)
+        print
 
     def print_hash_table(self):
         print "MPQ archive hash table"
