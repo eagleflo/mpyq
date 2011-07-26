@@ -293,6 +293,8 @@ class MPQArchive(object):
 
     def print_files(self):
         if self.files:
+            print "Files"
+            print "-----"
             for filename in self.files:
                 hash_entry = self.get_hash_table_entry(filename)
                 block_entry = self.block_table[hash_entry.block_table_index]
