@@ -5,3 +5,4 @@ dist/
 docs/
 build/
 *.SC2Replay
+*.SC2Map
