@@ -267,7 +267,7 @@ class MPQArchive(object):
             if key == "user_data_header":
                 continue
             print "{0:30} {1!r}".format(key, value)
-        if self.header['user_data_header']:
+        if self.header.get('user_data_header'):
             print
             print "MPQ user data header"
             print "--------------------"
