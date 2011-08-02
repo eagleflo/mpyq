@@ -31,7 +31,7 @@ MPQFileHeader = namedtuple('MPQFileHeader',
     '''
     magic
     header_size
-    arhive_size
+    archive_size
     format_version
     sector_size_shift
     hash_table_offset

@@ -18,7 +18,7 @@ class TestMPQArchive(unittest.TestCase):
     def test_header(self):
         self.assertEqual(self.archive.header['magic'], 'MPQ\x1a')
         self.assertEqual(self.archive.header['header_size'], 44)
-        self.assertEqual(self.archive.header['arhive_size'], 205044)
+        self.assertEqual(self.archive.header['archive_size'], 205044)
         self.assertEqual(self.archive.header['format_version'], 1)
         self.assertEqual(self.archive.header['sector_size_shift'], 3)
         self.assertEqual(self.archive.header['hash_table_offset'], 204628)
