@@ -176,7 +176,7 @@ class MPQArchive(object):
             if (entry.hash_a == hash_a and entry.hash_b == hash_b):
                 return entry
 
-    def read_file(self, filename):
+    def read_file(self, filename, force_decompress=False):
         """Read a file from the MPQ archive."""
 
         def decompress(data):
@@ -229,7 +229,7 @@ class MPQArchive(object):
                 # Single unit files only need to be decompressed, but
                 # compression only happens when at least one byte is gained.
                 if (block_entry.flags & MPQ_FILE_COMPRESS and
-                    block_entry.size > block_entry.archived_size):
+                    (force_decompress or block_entry.size > block_entry.archived_size)):
                     file_data = decompress(file_data)
 
             return file_data
