@@ -40,9 +40,10 @@ your filesystem and then either adjust your PYTHONPATH environment variable to
 point to the directory that contains the repository or create a symbolic link
 to your Python's site-packages directory pointing at the repository.
 
-Note that mpyq uses the argparse module, which was included into Python's
-standard library in version 2.7. If you wish to use the library with older
-versions of Python, you should install argparse from PyPI manually.
+Note that the command line interface part of mpyq uses the argparse module,
+which was included into Python's standard library in version 2.7. If you wish
+to use the command line interface part with older versions of Python, you
+should install argparse from PyPI manually.
 
 ## Usage
 

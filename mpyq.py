@@ -5,7 +5,6 @@
 mpyq is a Python library for reading MPQ (MoPaQ) archives.
 """
 
-import argparse
 import bz2
 import cStringIO
 import os
@@ -366,6 +365,7 @@ class MPQArchive(object):
 
 
 def main():
+    import argparse
     description = "mpyq reads and extracts MPQ archives."
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("file", action="store", help="path to the archive")
