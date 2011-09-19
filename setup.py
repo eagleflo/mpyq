@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from mpyq import __version__ as version
+import sys
 from setuptools import setup
 
 setup(name='mpyq',
-      version=version,
+      version='0.1.9',
       author='Aku Kotkavuo',
       author_email='aku@hibana.net',
       url='http://github.com/arkx/mpyq/',
@@ -27,4 +27,5 @@ setup(name='mpyq',
         'Topic :: Software Development :: Libraries',
         'Topic :: System :: Archiving',
       ],
+      install_requires=['argparse'] if float(sys.version[:3]) < 2.7 else [],
      )
