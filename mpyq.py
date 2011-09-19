@@ -221,7 +221,7 @@ class MPQArchive(object):
                 for i in range(len(positions) - (2 if crc else 1)):
                     sector = file_data[positions[i]:positions[i+1]]
                     if (block_entry.flags & MPQ_FILE_COMPRESS and
-                        block_entry.size > block_entry.archived_size):
+                        (force_decompress or block_entry.size > block_entry.archived_size)):
                         sector = decompress(sector)
                     result.write(sector)
                 file_data = result.getvalue()
