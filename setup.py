@@ -5,7 +5,7 @@ from setuptools import setup
 from mpyq import __version__ as version
 
 setup(name='mpyq',
-      version=version,
+      version='0.1.9',
       author='Aku Kotkavuo',
       author_email='aku@hibana.net',
       url='http://github.com/arkx/mpyq/',
