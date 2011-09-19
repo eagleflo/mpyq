@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-from mpyq import __version__ as version
+import sys
 from setuptools import setup
+from mpyq import __version__ as version
 
 setup(name='mpyq',
       version=version,
@@ -28,4 +29,5 @@ setup(name='mpyq',
         'Topic :: Software Development :: Libraries',
         'Topic :: System :: Archiving',
       ],
+      install_requires=['argparse'] if float(sys.version[:3]) < 2.7 else [],
      )
