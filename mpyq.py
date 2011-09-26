@@ -245,7 +245,7 @@ class MPQArchive(object):
 
     def extract_to_disk(self):
         """Extract all files and write them to disk."""
-        archive_name, extension = os.path.splitext(self.file.name)
+        archive_name, extension = os.path.splitext(os.path.basename(self.file.name))
         if not os.path.isdir(os.path.join(os.getcwd(), archive_name)):
             os.mkdir(archive_name)
         os.chdir(archive_name)
