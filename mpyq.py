@@ -197,6 +197,9 @@ class MPQArchive(object):
 
         # Read the block.
         if block_entry.flags & MPQ_FILE_EXISTS:
+            if block_entry.archived_size == 0:
+                return None
+
             offset = block_entry.offset + self.header['offset']
             self.file.seek(offset)
             file_data = self.file.read(block_entry.archived_size)
