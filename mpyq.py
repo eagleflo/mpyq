@@ -139,6 +139,8 @@ class MPQArchive(object):
             header = read_mpq_header(user_data_header['mpq_header_offset'])
             header['offset'] = user_data_header['mpq_header_offset']
             header['user_data_header'] = user_data_header
+        else:
+            raise ValueError("Invalid file header.")
 
         return header
 
