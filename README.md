@@ -186,7 +186,7 @@ You can list all files inside the archive with `-t/--list-files`.
     replay.sync.events                  765 bytes
 
 You can skip reading the listfile with `-s/--skip-listfile`. This might be
-necessarry if the listfile is encrypted or corrupted. Note that you cannot
+necessary if the listfile is encrypted or corrupted. Note that you cannot
 list files or extract the whole archive without the listfile.
 
 ## References
