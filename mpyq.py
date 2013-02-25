@@ -14,7 +14,7 @@ from collections import namedtuple
 
 
 __author__ = "Aku Kotkavuo"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 MPQ_FILE_IMPLODE        = 0x00000100
