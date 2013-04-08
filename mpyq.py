@@ -274,12 +274,12 @@ class MPQArchive(object):
                 continue
             print("{0:30} {1!r}".format(key, value))
         if self.header.get('user_data_header'):
-            print
+            print()
             print("MPQ user data header")
             print("--------------------")
             for key, value in self.header['user_data_header'].iteritems():
                 print("{0:30} {1!r}".format(key, value))
-        print
+        print()
 
     def print_hash_table(self):
         print("MPQ archive hash table")
@@ -295,7 +295,7 @@ class MPQArchive(object):
         print(" Offset  ArchSize RealSize  Flags")
         for entry in self.block_table:
             print('{0:0>8X} {1:0>8} {2:>8} {3:>8X}'.format(*entry))
-        print
+        print()
 
     def print_files(self):
         if self.files:
