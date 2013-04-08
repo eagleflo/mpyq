@@ -294,7 +294,7 @@ class MPQArchive(object):
         print("-----------------------")
         print(" Offset  ArchSize RealSize  Flags")
         for entry in self.block_table:
-            print('{0:0>8X} {1:0>8} {2:>8} {3:>8X}'.format(*entry))
+            print('{0:0>8X} {1:>8} {2:>8} {3:>8X}'.format(*entry))
         print()
 
     def print_files(self):
