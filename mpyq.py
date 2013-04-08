@@ -305,7 +305,7 @@ class MPQArchive(object):
             for filename in self.files:
                 hash_entry = self.get_hash_table_entry(filename)
                 block_entry = self.block_table[hash_entry.block_table_index]
-                print("{0:{width}} {1:>8} bytes".format(filename,
+                print("{0:{width}} {1:>8} bytes".format(filename.decode(),
                                                         block_entry.size,
                                                         width=width))
 
