@@ -224,11 +224,14 @@ class MPQArchive(object):
                 positions = struct.unpack('<%dI' % (sectors + 1),
                                           file_data[:4*(sectors+1)])
                 result = BytesIO()
+                sector_bytes_left = block_entry.size
                 for i in range(len(positions) - (2 if crc else 1)):
                     sector = file_data[positions[i]:positions[i+1]]
                     if (block_entry.flags & MPQ_FILE_COMPRESS and
-                        (force_decompress or block_entry.size > block_entry.archived_size)):
+                        (force_decompress or sector_bytes_left > len(sector))):
                         sector = decompress(sector)
+
+                    sector_bytes_left -= len(sector)
                     result.write(sector)
                 file_data = result.getvalue()
             else:
