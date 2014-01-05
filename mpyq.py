@@ -16,7 +16,7 @@ from io import BytesIO
 
 
 __author__ = "Aku Kotkavuo"
-__version__ = "0.2.3"
+__version__ = "0.2.4"
 
 
 MPQ_FILE_IMPLODE        = 0x00000100
