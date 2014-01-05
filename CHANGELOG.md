@@ -32,19 +32,20 @@
 
 ### 0.1.9 - Released 2011-09-18
 
- * Introduces force_decompress option. This flexibility allows for reading files
-   from some otherwise corrupted MPQ files.
- * Fixes print_headers for archives without user_data_header.
- * Improves formatting of print_file command.
+ * Introduces force_decompress option. This flexibility allows for reading
+   files from some otherwise corrupted MPQ files.
+ * Fixes print_headers for archives without user_data_header
+ * Improves formatting of print_file command
 
 ### 0.1.8 - Released 2011-03-28
 
  * Adds support for opening any file-like object (objects implementing .read())
- * Returns None when attempting to read missing or non-existant file from archive
+ * Returns None when attempting to read missing or non-existant file from
+   archive
 
 ### 0.1.7 - Released 2011-03-08
 
- * Adds support for opening archives from opened file objects.
+ * Adds support for opening archives from opened file objects
  
 ### 0.1.6 - Released 2011-03-03
 
@@ -52,20 +53,31 @@
 
 ### 0.1.5 - Released 2011-03-01
 
- * Adds option to skip/ignore the list file. Allows reading when listfile has been
-   encrypted or tampered with when you already know what you are looking for.
+ * Adds option to skip/ignore the list file. Allows reading when listfile has
+   been encrypted or tampered with when you already know what you are looking
+   for.
 
 ### 0.1.4 - Released 2011-02-28
 
- * Raises NotImplementedError when attempting to read encrypted files from archives.
+ * Raises NotImplementedError when attempting to read encrypted files from
+   archives
 
 ### 0.1.3 - Released 2011-02-26
 
- * Adds print_hash_table and print_block_table commands.
+ * Adds print_hash_table and print_block_table commands
 
 ### 0.1.2 - Released 2011-02-24
 
- * Fixed UnboundLocalError in read_file.
+ * Fixed UnboundLocalError in read_file
 
-### Initial Release - 2011-01-05
+### 0.1.1 - Released 2011-01-05
+
+ * Fixed installation layout
+ * Added minimal regression test
+
+### 0.1.0 - Released 2010-09-05
+
+ * Released on PyPI for the first time
+
+### Initial Release - 2010-05-15
 
