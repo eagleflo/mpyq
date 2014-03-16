@@ -272,7 +272,7 @@ class MPQArchive(object):
     def print_headers(self):
         print("MPQ archive header")
         print("------------------")
-        for key, value in self.header.iteritems():
+        for key, value in self.header.items():
             if key == "user_data_header":
                 continue
             print("{0:30} {1!r}".format(key, value))
@@ -280,7 +280,7 @@ class MPQArchive(object):
             print()
             print("MPQ user data header")
             print("--------------------")
-            for key, value in self.header['user_data_header'].iteritems():
+            for key, value in self.header['user_data_header'].items():
                 print("{0:30} {1!r}".format(key, value))
         print()
 
