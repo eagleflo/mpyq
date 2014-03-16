@@ -258,7 +258,7 @@ class MPQArchive(object):
         os.chdir(archive_name)
         for filename, data in self.extract().items():
             f = open(filename, 'wb')
-            f.write(data or "")
+            f.write(data or b'')
             f.close()
 
     def extract_files(self, *filenames):
@@ -266,7 +266,7 @@ class MPQArchive(object):
         for filename in filenames:
             data = self.read_file(filename)
             f = open(filename, 'wb')
-            f.write(data or "")
+            f.write(data or b'')
             f.close()
 
     def print_headers(self):
