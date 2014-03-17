@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import os
+import sys
 import unittest
 from mpyq import MPQArchive
 
@@ -39,3 +40,27 @@ class TestMPQArchive(unittest.TestCase):
                                               'replay.message.events',
                                               'replay.smartcam.events',
                                               'replay.sync.events'])
+
+    def test_print_hash_table(self):
+        self.archive.print_hash_table()
+        self.assertEqual(sys.stdout.getvalue(),
+                         "MPQ archive hash table\n"
+                         "----------------------\n"
+                         " Hash A   Hash B  Locl Plat BlockIdx\n"
+                         "D38437CB 07DFEAEC 0000 0000 00000009\n"
+                         "AAC2A54B F4762B95 0000 0000 00000002\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "C9E5B770 3B18F6B6 0000 0000 00000005\n"
+                         "343C087B 278E3682 0000 0000 00000004\n"
+                         "3B2B1EA0 B72EF057 0000 0000 00000006\n"
+                         "5A7E8BDC FF253F5C 0000 0000 00000001\n"
+                         "FD657910 4E9B98A7 0000 0000 00000008\n"
+                         "D383C29C EF402E92 0000 0000 00000000\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "FFFFFFFF FFFFFFFF FFFF FFFF FFFFFFFF\n"
+                         "1DA8B0CF A2CEFF28 0000 0000 00000007\n"
+                         "31952289 6A5FFAA3 0000 0000 00000003\n"
+                         "\n")
