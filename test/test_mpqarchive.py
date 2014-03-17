@@ -17,7 +17,7 @@ class TestMPQArchive(unittest.TestCase):
         self.archive = MPQArchive(open(TEST_DIR + 'test.SC2Replay', 'rb'))
 
     def test_header(self):
-        self.assertEqual(self.archive.header['magic'], 'MPQ\x1a')
+        self.assertEqual(self.archive.header['magic'], b'MPQ\x1a')
         self.assertEqual(self.archive.header['header_size'], 44)
         self.assertEqual(self.archive.header['archive_size'], 205044)
         self.assertEqual(self.archive.header['format_version'], 1)
@@ -32,14 +32,14 @@ class TestMPQArchive(unittest.TestCase):
         self.assertEqual(self.archive.header['offset'], 1024)
 
     def test_files(self):
-        self.assertEqual(self.archive.files, ['replay.attributes.events',
-                                              'replay.details',
-                                              'replay.game.events',
-                                              'replay.initData',
-                                              'replay.load.info',
-                                              'replay.message.events',
-                                              'replay.smartcam.events',
-                                              'replay.sync.events'])
+        self.assertEqual(self.archive.files, [b'replay.attributes.events',
+                                              b'replay.details',
+                                              b'replay.game.events',
+                                              b'replay.initData',
+                                              b'replay.load.info',
+                                              b'replay.message.events',
+                                              b'replay.smartcam.events',
+                                              b'replay.sync.events'])
 
     def test_print_hash_table(self):
         self.archive.print_hash_table()
