@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+### 0.2.5 - Releaed 2014-03-17
+
+ * Fixed Python 3 incompatibilities
+
 ### 0.2.4 - Released 2014-01-05
 
  * Fixed bug in multi-sector block decompression
