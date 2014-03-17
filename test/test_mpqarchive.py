@@ -64,3 +64,21 @@ class TestMPQArchive(unittest.TestCase):
                          "1DA8B0CF A2CEFF28 0000 0000 00000007\n"
                          "31952289 6A5FFAA3 0000 0000 00000003\n"
                          "\n")
+
+    def test_print_block_table(self):
+        self.archive.print_block_table()
+        self.assertEqual(sys.stdout.getvalue(),
+                         "MPQ archive block table\n"
+                         "-----------------------\n"
+                         " Offset  ArchSize RealSize  Flags\n"
+                         "0000002C      727      890 81000200\n"
+                         "00000303      801     1257 81000200\n"
+                         "00000624   194096   479869 81000200\n"
+                         "0002FC54      226      334 81000200\n"
+                         "0002FD36       97       97 81000200\n"
+                         "0002FD97     1323     1970 81000200\n"
+                         "000302C2     6407    12431 81000200\n"
+                         "00031BC9      533     2400 81000200\n"
+                         "00031DDE      120      164 81000200\n"
+                         "00031E56      254      288 81000200\n"
+                         "\n")
