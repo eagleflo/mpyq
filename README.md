@@ -176,6 +176,8 @@ You can display the archive's block table with `-b/--block-table`.
 You can list all files inside the archive with `-t/--list-files`.
 
     $ mpyq -t game.SC2Replay
+    Files
+    -----
     replay.attributes.events            580 bytes
     replay.details                      443 bytes
     replay.game.events                42859 bytes
