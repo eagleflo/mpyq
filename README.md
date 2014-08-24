@@ -74,7 +74,7 @@ This might be required if the (listfile) is encrypted or has been tampered
 with. Note that you can't list files or extract the whole archive if you do
 this -- you need to know in advance which files you want to read.
 
-    >>> archive.read('replay.details')
+    >>> archive.read_file('replay.details')
     '\x05\x1c\x00\x04\x01\x00\x04\x05...'
 
 For more information, consult `help(mpyq)` in your Python console.
