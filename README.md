@@ -196,7 +196,7 @@ list files or extract the whole archive without the listfile.
 The following two documents were used as references for the MPQ format:
 
  * [http://www.zezula.net/en/mpq/mpqformat.html](http://www.zezula.net/en/mpq/mpqformat.html)
- * [http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format](http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format)
+ * [http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format](https://web.archive.org/web/20120222093346/http://wiki.devklog.net/index.php?title=The_MoPaQ_Archive_Format)
 
 
 ## Copyright
