@@ -212,7 +212,7 @@ class MPQArchive(object):
                 raise NotImplementedError("Encryption is not supported yet.")
 
             if not block_entry.flags & MPQ_FILE_SINGLE_UNIT:
-                # File consist of many sectors. They all need to be
+                # File consists of many sectors. They all need to be
                 # decompressed separately and united.
                 sector_size = 512 << self.header['sector_size_shift']
                 sectors = block_entry.size // sector_size + 1
