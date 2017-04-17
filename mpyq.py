@@ -142,7 +142,7 @@ class MPQArchive(object):
             header['offset'] = user_data_header['mpq_header_offset']
             header['user_data_header'] = user_data_header
         else:
-            raise ValueError("Invalid file header.")
+            raise ValueError("Invalid file header {0}.".format(magic))
 
         return header
 
