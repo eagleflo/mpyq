@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 from setuptools import setup
 from mpyq import __version__ as version
 
@@ -31,8 +30,7 @@ setup(name='mpyq',
         'Topic :: System :: Archiving',
       ],
       install_requires=[
-          'argparse; python_version < "2.7"',
-          'mock; python_version < "3.3"',
-          'six',
-          ]
-     )
+        'argparse; python_version < "2.7"',
+        'mock; python_version < "3.3"',
+        'six',
+      ])
