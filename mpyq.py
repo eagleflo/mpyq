@@ -105,6 +105,14 @@ class MPQArchive(object):
         else:
             self.files = None
 
+    def close(self):
+        if self.file:
+            self.file.close()
+        self.file = None
+
+    def __del__(self):
+        self.close()
+
     def read_header(self):
         """Read the header of a MPQ archive."""
 

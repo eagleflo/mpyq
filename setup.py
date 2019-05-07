@@ -30,5 +30,9 @@ setup(name='mpyq',
         'Topic :: Software Development :: Libraries',
         'Topic :: System :: Archiving',
       ],
-      install_requires=['argparse'] if float(sys.version[:3]) < 2.7 else [],
+      install_requires=[
+          'argparse; python_version < "2.7"',
+          'mock; python_version < "3.3"',
+          'six',
+          ]
      )
