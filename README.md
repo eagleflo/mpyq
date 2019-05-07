@@ -1,6 +1,6 @@
 # mpyq
 
-mpyq is a Python library for reading MPQ (MoPaQ) archives used in many of
+mpyq is a pure Python library for reading MPQ (MoPaQ) archives used in many of
 Blizzard's games. It was originally developed for data mining Starcraft II
 replay files.
 
@@ -10,13 +10,6 @@ exposes some of the library's core functionality such as extracting archives.
 Only files compressed with DEFLATE or bzip2 are uncompressed. This means that
 this library can not be used to extract most big game asset archives that
 Blizzard's games use. More compression formats may be supported in the future.
-
-Also, as mpyq is so far pure Python code, it might be unfeasible to try to
-extract very large MPQ archives, even if all the compression methods used
-inside the archive were supported.
-
-Note that listing files inside an archive does not require full extraction.
-You can safely take a peek inside any MPQ archive with this library.
 
 
 ## Installation
