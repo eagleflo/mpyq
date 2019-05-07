@@ -179,6 +179,10 @@ You can skip reading the listfile with `-s/--skip-listfile`. This might be
 necessary if the listfile is encrypted or corrupted. Note that you cannot
 list files or extract the whole archive without the listfile.
 
+## Running tests
+
+    python -m unittest discover
+
 ## References
 
 The following two documents were used as references for the MPQ format:
