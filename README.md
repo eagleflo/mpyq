@@ -7,10 +7,9 @@ replay files.
 In addition to being a library, mpyq also has a command line interface that
 exposes some of the library's core functionality such as extracting archives.
 
-At this early stage in development only files compressed with DEFLATE or bzip2
-are uncompressed. This means that this library can not be used to extract most
-big game asset archives that Blizzard's games use. More compression formats
-will be supported in the future.
+Only files compressed with DEFLATE or bzip2 are uncompressed. This means that
+this library can not be used to extract most big game asset archives that
+Blizzard's games use. More compression formats may be supported in the future.
 
 Also, as mpyq is so far pure Python code, it might be unfeasible to try to
 extract very large MPQ archives, even if all the compression methods used
