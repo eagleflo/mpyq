@@ -33,11 +33,6 @@ Running this command will install mpyq both as a library and a stand-alone
 script that can be run from anywhere, provided that you have added Python's
 bin directory to your PATH environment variable.
 
-Note that the command line interface part of mpyq uses the argparse module,
-which was included into Python's standard library in version 2.7. If you
-didn't install mpyq from PyPI and you wish to use the command line interface
-part with Python 2.6, you should install argparse from PyPI manually.
-
 ## Usage
 
 ### As a library
