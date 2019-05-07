@@ -2,9 +2,15 @@
 # coding: utf-8
 
 import os
-import sys
 import unittest
+
+try:
+    from unittest import mock  # Python 3+
+except ImportError:
+    import mock  # Python 2.7
+
 from mpyq import MPQArchive
+import six
 
 TEST_DIR = os.path.realpath(os.path.dirname(__file__)) + '/'
 
@@ -12,6 +18,10 @@ class TestMPQArchive(unittest.TestCase):
 
     def setUp(self):
         self.archive = MPQArchive(TEST_DIR + 'test.SC2Replay')
+
+    def tearDown(self):
+        self.archive.close()
+        self.archive = None
 
     def test_init_with_file(self):
         self.archive = MPQArchive(open(TEST_DIR + 'test.SC2Replay', 'rb'))
@@ -41,9 +51,10 @@ class TestMPQArchive(unittest.TestCase):
                                               b'replay.smartcam.events',
                                               b'replay.sync.events'])
 
-    def test_print_hash_table(self):
+    @mock.patch('sys.stdout', new_callable=six.StringIO)
+    def test_print_hash_table(self, mock_stdout):
         self.archive.print_hash_table()
-        self.assertEqual(sys.stdout.getvalue(),
+        self.assertEqual(mock_stdout.getvalue(),
                          "MPQ archive hash table\n"
                          "----------------------\n"
                          " Hash A   Hash B  Locl Plat BlockIdx\n"
@@ -65,9 +76,10 @@ class TestMPQArchive(unittest.TestCase):
                          "31952289 6A5FFAA3 0000 0000 00000003\n"
                          "\n")
 
-    def test_print_block_table(self):
+    @mock.patch('sys.stdout', new_callable=six.StringIO)
+    def test_print_block_table(self, mock_stdout):
         self.archive.print_block_table()
-        self.assertEqual(sys.stdout.getvalue(),
+        self.assertEqual(mock_stdout.getvalue(),
                          "MPQ archive block table\n"
                          "-----------------------\n"
                          " Offset  ArchSize RealSize  Flags\n"
@@ -82,3 +94,7 @@ class TestMPQArchive(unittest.TestCase):
                          "00031DDE      120      164 81000200\n"
                          "00031E56      254      288 81000200\n"
                          "\n")
+
+
+if __name__ == '__main__':
+    unittest.main()
