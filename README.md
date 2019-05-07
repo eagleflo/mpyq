@@ -201,4 +201,4 @@ The following two documents were used as references for the MPQ format:
 
 ## Copyright
 
-Copyright 2010-2014 Aku Kotkavuo. See LICENSE for details.
+Copyright 2010-2019 Aku Kotkavuo. See LICENSE for details.
