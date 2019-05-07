@@ -18,6 +18,7 @@ inside the archive were supported.
 Note that listing files inside an archive does not require full extraction.
 You can safely take a peek inside any MPQ archive with this library.
 
+
 ## Installation
 
 A stable version of mpyq is available from PyPI and can be installed with `pip`.
@@ -32,7 +33,9 @@ Running this command will install mpyq both as a library and a stand-alone
 script that can be run from anywhere, provided that you have added Python's
 bin directory to your PATH environment variable.
 
+
 ## Usage
+
 
 ### As a library
 
@@ -65,6 +68,7 @@ this -- you need to know in advance which files you want to read.
     '\x05\x1c\x00\x04\x01\x00\x04\x05...'
 
 For more information, consult `help(mpyq)` in your Python console.
+
 
 ### From the command line
 
@@ -178,9 +182,11 @@ You can skip reading the listfile with `-s/--skip-listfile`. This might be
 necessary if the listfile is encrypted or corrupted. Note that you cannot
 list files or extract the whole archive without the listfile.
 
+
 ## Running tests
 
     python -m unittest discover
+
 
 ## References
 
