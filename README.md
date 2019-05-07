@@ -21,13 +21,11 @@ You can safely take a peek inside any MPQ archive with this library.
 
 ## Installation
 
-A stable version of mpyq is available from PyPI and can be installed with
-either `easy_install` or `pip`.
+A stable version of mpyq is available from PyPI and can be installed with `pip`.
 
-    $ easy_install mpyq
     $ pip install mpyq
 
-mpyq can be installed manually with the included setup.py script.
+mpyq can also be manually installed with the included setup.py script.
 
     $ python setup.py install
 
