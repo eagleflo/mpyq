@@ -200,7 +200,8 @@ class MPQArchive(object):
             elif compression_type == 16:
                 return bz2.decompress(data[1:])
             else:
-                raise RuntimeError("Unsupported compression type.")
+                msg = "Unsupported compression type: {}".format(compression_type)
+                raise RuntimeError(msg)
 
         hash_entry = self.get_hash_table_entry(filename)
         if hash_entry is None:
