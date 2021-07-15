@@ -14,7 +14,7 @@ except ImportError:
 from mpyq import MPQArchive
 import six
 
-TEST_DIR = os.path.realpath(os.path.dirname(__file__)) + '/'
+TEST_DIR = os.path.realpath(os.path.dirname(__file__)) + os.path.sep
 
 class TestMPQArchive(unittest.TestCase):
 
