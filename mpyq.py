@@ -252,29 +252,28 @@ class MPQArchive(object):
 
             return file_data
 
-    def extract(self):
+    def extract(self, *filenames):
         """Extract all the files inside the MPQ archive in memory."""
-        if self.files:
-            return dict((f, self.read_file(f)) for f in self.files)
+        files = filenames if len(filenames)>0 else self.files
+        if files:
+            return dict((f, self.read_file(f)) for f in files)
         else:
             raise RuntimeError("Can't extract whole archive without listfile.")
 
-    def extract_to_disk(self):
+    def extract_to_disk(self, *filepaths, target_dir=None):
         """Extract all files and write them to disk."""
         archive_name, extension = os.path.splitext(os.path.basename(self.file.name))
-        if not os.path.isdir(os.path.join(os.getcwd(), archive_name)):
-            os.mkdir(archive_name)
-        os.chdir(archive_name)
-        for filename, data in self.extract().items():
-            f = open(filename, 'wb')
-            f.write(data or b'')
-            f.close()
-
-    def extract_files(self, *filenames):
-        """Extract given files from the archive to disk."""
-        for filename in filenames:
-            data = self.read_file(filename)
-            f = open(filename, 'wb')
+        target_dir = target_dir if target_dir is not None else os.getcwd()
+        create_dir = os.path.join(target_dir, archive_name)
+        if not os.path.isdir(create_dir):
+            os.mkdir(create_dir)
+        os.chdir(target_dir)
+        for filepath, data in self.extract(*filepaths).items():
+            standardized_filepath = filepath.replace(b"\\",b"/")
+            filedir, filename = os.path.split(standardized_filepath)
+            if len(filedir) > 0 and not os.path.isdir(filedir):
+                os.makedirs(filedir)
+            f = open(standardized_filepath, 'wb')
             f.write(data or b'')
             f.close()
 

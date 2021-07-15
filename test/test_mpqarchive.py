@@ -3,6 +3,8 @@
 
 import os
 import unittest
+from tempfile import mkdtemp
+from shutil import rmtree
 
 try:
     from unittest import mock  # Python 3+
@@ -95,6 +97,27 @@ class TestMPQArchive(unittest.TestCase):
                          "00031E56      254      288 81000200\n"
                          "\n")
 
+class TestSC2Map(unittest.TestCase):
+
+    def setUp(self):
+        self.archive = MPQArchive(TEST_DIR + 'CollectMineralShards.SC2Map')
+
+    def tearDown(self):
+        self.archive.close()
+        self.archive = None
+
+    def test_init_with_file(self):
+        self.archive = MPQArchive(open(TEST_DIR + 'CollectMineralShards.SC2Map', 'rb'))
+
+    def test_extract_all(self):
+        temp_dir = mkdtemp()
+        self.archive.extract_to_disk(target_dir=temp_dir)
+        rmtree(temp_dir)
+
+    def test_extract_some_to_disk(self):
+        temp_dir = mkdtemp()
+        self.archive.extract_to_disk(b'DocumentInfo', b'Regions', target_dir=temp_dir)
+        rmtree(temp_dir)
 
 if __name__ == '__main__':
     unittest.main()
