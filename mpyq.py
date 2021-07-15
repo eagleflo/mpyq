@@ -260,10 +260,10 @@ class MPQArchive(object):
         else:
             raise RuntimeError("Can't extract whole archive without listfile.")
 
-    def extract_to_disk(self, *filepaths, target_dir=None):
+    def extract_to_disk(self, *filepaths, **target_dir):
         """Extract all files and write them to disk."""
+        target_dir = target_dir['target_dir'] if 'target_dir' in target_dir else os.getcwd() # Need to write this way for 2.7 :(
         archive_name, extension = os.path.splitext(os.path.basename(self.file.name))
-        target_dir = target_dir if target_dir is not None else os.getcwd()
         create_dir = os.path.join(target_dir, archive_name)
         if not os.path.isdir(create_dir):
             os.mkdir(create_dir)
