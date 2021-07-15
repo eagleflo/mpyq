@@ -267,7 +267,7 @@ class MPQArchive(object):
         create_dir = os.path.join(target_dir, archive_name)
         if not os.path.isdir(create_dir):
             os.mkdir(create_dir)
-        os.chdir(target_dir)
+        os.chdir(create_dir)
         for filepath, data in self.extract(*filepaths).items():
             standardized_filepath = filepath.replace(b"\\",b"/")
             filedir, filename = os.path.split(standardized_filepath)
