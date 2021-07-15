@@ -112,11 +112,13 @@ class TestSC2Map(unittest.TestCase):
     def test_extract_all(self):
         temp_dir = mkdtemp()
         self.archive.extract_to_disk(target_dir=temp_dir)
+        os.chdir('..') # Back out of dir to allow removal
         rmtree(temp_dir)
 
     def test_extract_some_to_disk(self):
         temp_dir = mkdtemp()
         self.archive.extract_to_disk(b'DocumentInfo', b'Regions', target_dir=temp_dir)
+        os.chdir('..') # Back out of dir to allow removal
         rmtree(temp_dir)
 
 if __name__ == '__main__':
